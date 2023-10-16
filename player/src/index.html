@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Player</title>
+    <link rel="stylesheet" href="./assets/styles/index.css" />
+  </head>
+  <body>
+    <header class="header"></header>
+    <main>
+      <div class="player">
+        <div class="player-controls">
+          <div class="buttons">
+            <button class="play-prev player-icon"></button>
+            <button class="play player-icon"></button>
+            <button class="play-next player-icon"></button>
+          </div>
+          <div class="buttons">
+            <button class="volume-icon"></button>
+            <input type="range" class="volume-range" min="0" max="100" />
+          </div>
+        </div>
+      </div>
+      <p>Playlist</p>
+      <ul class="play-list" id="playList"></ul>
+      <div id="waveform" class="wave"></div>
+    </main>
+    <footer>@marerma</footer>
+    <template id="audioItem">
+      <li class="play-item">
+        <div class="track-container">
+          <div class="item__title-wrapper">
+            <span class="playIcon"></span>
+            <p class="item__title">Текущий трек</p>
+          </div>
+          <div>
+            <div class="track__time-container">
+              <span class="current__time">00:00</span>
+              <span class="track__time">00:00</span>
+            </div>
+            <progress class="track" value="0" max="100"></progress>
+          </div>
+        </div>
+      </li>
+    </template>
+
+    <script src="./js/index.js" type="module"></script>
+  </body>
+</html>
