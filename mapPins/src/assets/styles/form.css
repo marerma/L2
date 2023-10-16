@@ -3,13 +3,30 @@
   border-radius: 2rem;
   padding: 20px;
   padding-top: 30px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   display: block;
 }
 textarea {
   resize: vertical;
+}
+
+.filter__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filter__form .pin__text,
+.filter__form .pin__save-btn {
+  max-width: 70%;
+  min-width: 200px;
+}
+
+.filter__btns-container {
+  display: flex;
+  gap: 1rem;
 }
 
 .item__label {
@@ -146,6 +163,7 @@ input[type='radio']:not(:checked) {
   gap: 1rem;
   margin-top: 2rem;
 }
+
 .pin__save-btn,
 .pin__delete-btn {
   border-radius: 12px;
@@ -159,6 +177,7 @@ input[type='radio']:not(:checked) {
   transition: all 0.2s ease;
   cursor: pointer;
   color: var(--pink);
+  display: block;
 }
 .pin__save-btn:hover,
 .pin__delete-btn:hover {

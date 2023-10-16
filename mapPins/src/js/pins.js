@@ -1,12 +1,8 @@
 // coordinates [1, 2]
 
-import {
-  createElement,
-  getBaloonContent,
-  setPosition,
-  getHintHtml,
-} from './helpers.js';
-export { DEFAULT_COLOR } from './config.js';
+import { BODY } from './config.js';
+import { getBaloonContent, getHintHtml } from './pinMethods.js';
+import { createElement, setPosition } from './helpers.js';
 
 // создаем пин с необходимыми параметрами,
 // также передаем в опции название метки, описание, тип иконки и цвет
@@ -53,9 +49,15 @@ export function createPin({
       const menu = createElement('div', 'drop__container pin-menu');
       menu.id = 'pin-menu';
       menu.innerHTML = getBaloonContent();
+      const closeIcon = menu.querySelector('.close__icon');
+      closeIcon.addEventListener('click', () => {
+        setTimeout(() => {
+          menu.remove();
+        }, 100);
+      });
 
       // Размещаем контекстное меню на странице
-      document.querySelector('body').append(menu);
+      BODY.append(menu);
 
       // Задаем позицию меню.
       setPosition(menu, e);
@@ -102,13 +104,5 @@ export function createPin({
       };
     }
   });
-
-  pin.events.add('dragend', function (e) {
-    // Получение ссылки на объект, который был передвинут.
-    const thisPlacemark = e.get('target');
-    // Определение координат метки
-    const coords = thisPlacemark.geometry.getCoordinates();
-  });
-
   return pin;
 }

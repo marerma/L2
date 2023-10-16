@@ -11,11 +11,35 @@
     ></script>
   </head>
   <body>
-    <header>В этом приложении ты можешь добавить свои метки на карту</header>
+    <header>
+      <h1>В этом приложении ты можешь добавить свои метки на карту</h1>
+      <ul class="header__list">
+        <li class="header__list-item">
+          Клик по карте/объекту: добавление метки, можно заполнить название и
+          описание метки, а также выбрать цвет
+        </li>
+        <li class="header__list-item">
+          Клик правой кнопки мыши по метке позволит редактировать сохраненные
+          данные
+        </li>
+        <li class="header__list-item">
+          <form name="filterPins" class="filter__form">
+            <label for="searchMap"> Фильтровать метки по описанию </label>
+            <input type="text" name="search" id="searchMap" class="pin__text" />
+            <div class="filter__btns-container">
+              <button type="submit" class="pin__save-btn">Искать</button>
+              <button type="reset" name="reset" class="pin__save-btn hidden">
+                Сбросить
+              </button>
+            </div>
+          </form>
+        </li>
+      </ul>
+    </header>
     <main>
       <div id="map" class="map__container"></div>
     </main>
-    <footer>
+    <footer class="footer">
       <p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
