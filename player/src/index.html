@@ -12,15 +12,36 @@
       <div class="player">
         <div class="player-controls">
           <div class="buttons">
-            <button class="play-prev player-icon"></button>
-            <button class="play player-icon"></button>
-            <button class="play-next player-icon"></button>
-          </div>
-          <div class="buttons">
-            <button class="volume-icon"></button>
-            <input type="range" class="volume-range" min="0" max="100" />
+            <div class="btn-item">
+              <button class="play-prev player-icon"></button>
+              Предыдущий трек
+            </div>
+            <div class="btn-item">
+              <button id="playlist-play" class="playlist-play player-icon"></button>
+              Запустить плейлист по порядку
+            </div>
+            <div class="btn-item">
+              <button id="shuffle" class="shuffle player-icon"></button>
+              Случайное воспроизведение
+            </div>
+            <div class="btn-item">
+              <button class="play-next player-icon"></button>
+              Следующий трек
+            </div>
+            <div class="btn-item">
+              <button class="volume-icon"></button>
+              <input type="range" class="volume-range" min="0" max="100" />
+            </div>
           </div>
         </div>
+      </div>
+      <div class="track__container">
+        <div class="track__time-container">
+          <span class="current__time" id="current__time">00:00</span>
+          <span class="track__time" id="track__time">00:00</span>
+        </div>
+        <progress class="track" value="0" max="100" id="track"></progress>
+        <audio src="" id="audio"></audio>
       </div>
       <p>Playlist</p>
       <ul class="play-list" id="playList"></ul>
@@ -32,14 +53,9 @@
         <div class="track-container">
           <div class="item__title-wrapper">
             <span class="playIcon"></span>
-            <p class="item__title">Текущий трек</p>
-          </div>
-          <div>
-            <div class="track__time-container">
-              <span class="current__time">00:00</span>
-              <span class="track__time">00:00</span>
+            <div class="title__marquee">
+              <p class="item__title">Текущий трек</p>
             </div>
-            <progress class="track" value="0" max="100"></progress>
           </div>
         </div>
       </li>

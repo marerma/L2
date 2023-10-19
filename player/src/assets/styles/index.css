@@ -36,6 +36,12 @@ body {
 main {
   flex-grow: 1;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  justify-items: center;
+  align-items: center;
 }
 
 #waveform {
@@ -44,8 +50,5 @@ main {
 
 .wave {
   display: block;
-}
-
-.wave_hidden {
-  display: none;
+  width: 100%;
 }

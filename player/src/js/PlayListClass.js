@@ -1,150 +1,175 @@
-import { TEMPLATE_AUDIO, PLAYLIST } from './config.js';
-import { audioControl, resetProgressBar, updateUITimer } from './helpers.js';
-import { APP_STATE, waveform } from './index.js';
+import { Audio } from './AudioClass.js';
+import { AudioVisualizer } from './AudioVisualizer.js';
+import { PlayItem } from './PlayItem.js';
+import {
+  PLAYLIST,
+  VOLUME_BTN,
+  VOL_RANGE_BTN,
+  AUDIO_TRACK_PROGRESS,
+  AUDIO_CURRENT_TIME,
+  AUDIO_TRACK_TIME,
+  PLAYLIST_PLAY_BTN,
+  PLAYLIST_SHUFFLE_BTN,
+} from './config.js';
+import { handleProgressClick, progressUpdate } from './helpers.js';
 
-export class PlayItem {
-  constructor({ src, title, id }) {
-    this.src = src;
-    this.title = title;
-    this.id = id;
-    this.node = TEMPLATE_AUDIO.content.cloneNode(true);
-    this.audio = new Audio(this.src);
-    this.audio.muted = false;
-    this.audio.volume = 0.5;
-    this.titleEl = this.node.querySelector('.item__title');
-    this.titleEl.textContent = this.title;
-    this.node.append(this.audio);
-    this.playBtn = this.node.querySelector('.playIcon');
-    this.progressBar = this.node.querySelector('.track');
-    this.currentTime = this.node.querySelector('.current__time');
-    this.trackTime = this.node.querySelector('.track__time');
-    this.addControls();
-    this.isPlaying = false;
-  }
-
-  play() {
-    this.audio.play();
-    waveform.play();
-    this.playBtn.classList.add('active');
-    this.isPlaying = true;
-    APP_STATE.currentPlaying = this.id;
-  }
-  pause() {
-    this.audio.pause();
-    this.isPlaying = false;
-    this.playBtn.classList.remove('active');
-    waveform.pause();
-  }
-
-  mute() {
-    this.audio.muted = true;
-  }
-  unmute() {
-    this.audio.muted = false;
-  }
-  changeVolume(v) {
-    this.audio.volume = v;
-  }
-  getItem() {
-    return this.node;
-  }
-  addControls() {
-    this.playBtn.addEventListener('click', () => {
-      waveform.load(this.src).then(() => {
-        if (!this.isPlaying) {
-          if (APP_STATE.currentPlaying !== this.id) {
-            APP_STATE.playlist.updateCurrentPlaying(APP_STATE.currentPlaying);
-          }
-          APP_STATE.playlist.stopAll();
-          APP_STATE.playlist.playing = true;
-          this.play();
-        } else {
-          this.pause();
-        }
-      });
-    });
-
-    this.audio.addEventListener('loadedmetadata', () => this.progressUpdate());
-
-    this.audio.addEventListener('timeupdate', () => this.progressUpdate());
-    this.progressBar.addEventListener('click', (e) => {
-      audioControl(this, this.progressBar, e);
-      waveform.seekTo(this.progressBar.value / 100);
-    });
-  }
-  progressUpdate() {
-    let duration = this.audio.duration;
-    let current = this.audio.currentTime;
-    if (isNaN((current / duration) * 100)) {
-      this.progressBar.value = 0.0001;
-    } else {
-      this.progressBar.value = (current / duration) * 100;
-    }
-
-    if (this.progressBar.value == 100) {
-      this.pause();
-      this.progressBar.value = 0.0001;
-      this.audio.currentTime = 0;
-    }
-    updateUITimer(this.currentTime, this.trackTime, duration, current);
-  }
-}
-
-export class PlayList {
+export class PlayList extends Audio {
   constructor(playlist) {
+    super();
     this.playlist = playlist;
-    this.playing = false;
     this.audioList = this.createList(this.playlist);
+    this.visualizer = new AudioVisualizer();
+  }
+
+  createPlayItem({ src, title, id }) {
+    const element = new PlayItem({ src, title, id });
+    element.playBtn.addEventListener('click', () => {
+      this.controlPlaying(element);
+    });
+    element.titleEl.addEventListener('click', () => {
+      this.controlPlaying(element);
+    });
+    return element;
   }
 
   addItem(item) {
     this.playlist.push(item);
-    this.audioList.push(new PlayItem(item));
-  }
-
-  getLength() {
-    return this.playlist.length;
+    this.audioList.push(this.createPlayItem(item));
   }
 
   createList(list) {
-    return list.map((el) => new PlayItem(el));
+    return list.map((el) => this.createPlayItem(el));
   }
 
+  controlPlaying(audioElement) {
+    this.visualizer.load(audioElement.src, () => {
+      if (Audio.currentPlayingId !== audioElement.id) {
+        this.stopAll();
+        Audio.setSrc(audioElement.src);
+        Audio.currentPlayingId = audioElement.id;
+      }
+      if (Audio.isPlaying) {
+        audioElement.pause();
+        Audio.pause();
+        this.visualizer.pause();
+      } else {
+        audioElement.play();
+        Audio.play();
+        this.visualizer.play();
+      }
+    });
+  }
+
+  stopAll() {
+    this.audioList.forEach((song) => {
+      Audio.pause();
+      song.pause();
+      song.titleEl.classList.remove('title__animation');
+    });
+    Audio.isPlaying = false;
+  }
+
+  mute(resetVol, unSetVol) {
+    if (Audio.isMuted) {
+      Audio.unmute();
+      resetVol(Audio.volume);
+    } else {
+      Audio.mute();
+      unSetVol();
+    }
+  }
+
+  setVolume(volume) {
+    if (volume === 0) {
+      Audio.mute();
+      Audio.volume = 0;
+    } else {
+      Audio.unmute();
+      Audio.changeVolume(volume);
+    }
+  }
+
+  addVolumeHandlers() {
+    VOL_RANGE_BTN.addEventListener('input', (e) => {
+      const value = parseInt(e.target.value, 10);
+      this.setVolume(value / 100);
+      if (value === 0) {
+        VOLUME_BTN.classList.add('volume-icon-mute');
+      } else {
+        VOLUME_BTN.classList.remove('volume-icon-mute');
+      }
+    });
+
+    VOLUME_BTN.addEventListener('click', () => {
+      VOLUME_BTN.classList.toggle('volume-icon-mute');
+      this.mute(
+        (v) => {
+          VOL_RANGE_BTN.value = v * 100;
+        },
+        () => {
+          VOL_RANGE_BTN.value = 0;
+        }
+      );
+
+      // muteGeneral(VOL_RANGE_BTN, initialList);
+    });
+  }
+
+  addProgressBarHandlers() {
+    Audio.audioNode.addEventListener('loadedmetadata', () =>
+      progressUpdate(
+        Audio.audioNode,
+        AUDIO_TRACK_PROGRESS,
+        AUDIO_CURRENT_TIME,
+        AUDIO_TRACK_TIME
+      )
+    );
+
+    Audio.audioNode.addEventListener('timeupdate', () =>
+      progressUpdate(
+        Audio.audioNode,
+        AUDIO_TRACK_PROGRESS,
+        AUDIO_CURRENT_TIME,
+        AUDIO_TRACK_TIME
+      )
+    );
+
+    AUDIO_TRACK_PROGRESS.addEventListener('click', (e) => {
+      handleProgressClick(Audio.audioNode, AUDIO_TRACK_PROGRESS, e);
+      this.visualizer.updateProgressTrack(AUDIO_TRACK_PROGRESS.value);
+    });
+  }
+
+  addPlaylistControlHandles() {
+    PLAYLIST_PLAY_BTN.addEventListener('click', () => {
+      console.log('clich')
+      this.playListDirect();
+    });
+  }
   renderList() {
     PLAYLIST.innerHtml = '';
     this.audioList.forEach((element) => {
       PLAYLIST.append(element.getItem());
     });
+    this.addVolumeHandlers();
+    this.addProgressBarHandlers();
+    this.addPlaylistControlHandles();
   }
 
-  stopAll() {
-    if (this.playing) {
-      this.audioList.forEach((song) => {
-        song.pause();
-        song.isPlaying = false;
-        song.playBtn.classList.remove('active');
-      });
-      this.playing = false;
-    }
-  }
-  changeVolumeAll(state) {
-    if (state.isMuted) {
-      this.audioList.forEach((song) => {
-        song.mute();
-      });
-    } else {
-      this.audioList.forEach((song) => {
-        song.unmute();
-        song.changeVolume(state.volume);
-      });
-    }
-  }
-
-  updateCurrentPlaying(id) {
-    this.audioList
-      .filter((el) => el.id === id)
-      .forEach((song) => {
-        resetProgressBar(song);
-      });
+  playListDirect() {
+    let i = 0;
+    // while (i < this.audioList.length) {
+    //   this.visualizer.load(this.audioList[i].src, () => {
+    //     Audio.setSrc(this.audioList[i].src);
+    //     Audio.currentPlayingId = this.audioList[i].src.id;
+    //     this.audioList[i].play();
+    //     Audio.play();
+    //     this.visualizer.play();
+    //     Audio.audioNode.addEventListener('ended', () => {
+    //       console.log('ended');
+    //       i++;
+    //     });
+    //   });
+    // }
   }
 }
