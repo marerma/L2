@@ -1,5 +1,6 @@
 @import './normalize.css';
 @import './player.css';
+@import './inputFile.css';
 
 :root {
   --blue: #55868c;
@@ -10,6 +11,7 @@
 }
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 * {
   box-sizing: border-box;
@@ -19,7 +21,6 @@ p {
 }
 
 body {
-  min-width: 100vw;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -31,6 +32,7 @@ body {
   background-color: var(--blue);
   color: white;
   padding: 2rem;
+  gap: 2rem;
 }
 
 main {
@@ -51,4 +53,8 @@ main {
 .wave {
   display: block;
   width: 100%;
+}
+
+.title {
+  padding: 1rem 0;
 }

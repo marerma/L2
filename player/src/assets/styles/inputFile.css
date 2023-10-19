@@ -1,0 +1,54 @@
+.input-file {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.input-file-btn {
+  width: 100%;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  font-size: 14px;
+  vertical-align: middle;
+  color: var(--dark-grey);
+  text-align: center;
+  border-radius: 4px;
+  background-color: white;
+  line-height: 22px;
+  height: 40px;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  transition: background-color 0.2s;
+}
+.input-file input[type='file'] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+/* Focus */
+.input-file input[type='file']:focus + .input-file-btn {
+  box-shadow: 0 0 0 0.2rem var(--lila);
+}
+
+/* Hover/active */
+.input-file:hover .input-file-btn {
+  background-color: var(--pink);
+  box-shadow: 0 0 0 0.2rem var(--lila);
+}
+.input-file:active .input-file-btn {
+  background-color: var(--pink);
+}
+
+/* Disabled */
+.input-file input[type='file']:disabled + .input-file-btn {
+  background-color: #eee;
+}

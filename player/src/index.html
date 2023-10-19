@@ -5,28 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Player</title>
     <link rel="stylesheet" href="./assets/styles/index.css" />
+    <link type="image/x-icon" href=".assets/img/favicon.ico" />
   </head>
   <body>
-    <header class="header"></header>
+    <header class="header">
+      <p class="title">Загрузить свой файл</p>
+      <div name="saveFile" class="form">
+        <label class="input-file" for="audioFileInput">
+          <input
+            type="file"
+            id="audioFileInput"
+            accept="audio/*"
+            name="audioFileInput"
+          />
+          <span id="saveButton" class="input-file-btn">Выберите файл</span>
+        </label>
+      </div>
+    </header>
     <main>
       <div class="player">
         <div class="player-controls">
           <div class="buttons">
             <div class="btn-item">
-              <button class="play-prev player-icon"></button>
-              Предыдущий трек
-            </div>
-            <div class="btn-item">
-              <button id="playlist-play" class="playlist-play player-icon"></button>
+              <button
+                id="playlist-play"
+                class="playlist-play player-icon"
+              ></button>
               Запустить плейлист по порядку
             </div>
             <div class="btn-item">
               <button id="shuffle" class="shuffle player-icon"></button>
               Случайное воспроизведение
-            </div>
-            <div class="btn-item">
-              <button class="play-next player-icon"></button>
-              Следующий трек
             </div>
             <div class="btn-item">
               <button class="volume-icon"></button>
@@ -41,9 +50,8 @@
           <span class="track__time" id="track__time">00:00</span>
         </div>
         <progress class="track" value="0" max="100" id="track"></progress>
-        <audio src="" id="audio"></audio>
       </div>
-      <p>Playlist</p>
+      <p class="title">Текущий плейлист</p>
       <ul class="play-list" id="playList"></ul>
       <div id="waveform" class="wave"></div>
     </main>
@@ -57,6 +65,19 @@
               <p class="item__title">Текущий трек</p>
             </div>
           </div>
+          <span class="repeat-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 -960 960 960"
+              width="24"
+            >
+              <path
+                fill="currentColor"
+                d="M460-360v-180h-60v-60h120v240h-60ZM280-80 120-240l160-160 56 58-62 62h406v-160h80v240H274l62 62-56 58Zm-80-440v-240h486l-62-62 56-58 160 160-160 160-56-58 62-62H280v160h-80Z"
+              />
+            </svg>
+          </span>
         </div>
       </li>
     </template>

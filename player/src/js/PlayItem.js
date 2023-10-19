@@ -9,6 +9,7 @@ export class PlayItem {
     this.titleEl = this.node.querySelector('.item__title');
     this.titleEl.textContent = this.title;
     this.playBtn = this.node.querySelector('.playIcon');
+    this.repeatBtn = this.node.querySelector('.repeat-icon');
   }
 
   play() {
@@ -17,6 +18,12 @@ export class PlayItem {
   }
   pause() {
     this.playBtn.classList.remove('active');
+  }
+
+  toggleRepeat(id) {
+    if (id === this.id) {
+      this.repeatBtn.classList.add('repeat-icon_selected');
+    } else this.repeatBtn.classList.remove('repeat-icon_selected');
   }
 
   getItem() {

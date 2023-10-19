@@ -9,8 +9,8 @@ export class AudioVisualizer {
       cursorColor: '#CACAAA',
       barRadius: 3,
       height: 100,
-      interact: false,
-      dragToSeek: false,
+      interact: true,
+      dragToSeek: true,
     });
   }
 
