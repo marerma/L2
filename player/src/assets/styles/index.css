@@ -1,0 +1,60 @@
+@import './normalize.css';
+@import './player.css';
+@import './inputFile.css';
+
+:root {
+  --blue: #55868c;
+  --metal: #242f40;
+  --lila: #7f636e;
+  --dark-grey: #363636;
+  --pink: #cacaaa;
+}
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+* {
+  box-sizing: border-box;
+}
+p {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: stretch;
+  align-items: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+  background-color: var(--blue);
+  color: white;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+main {
+  flex-grow: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  justify-items: center;
+  align-items: center;
+}
+
+#waveform {
+  margin-bottom: 2rem;
+}
+
+.wave {
+  display: block;
+  width: 100%;
+}
+
+.title {
+  padding: 1rem 0;
+}
