@@ -50,7 +50,11 @@ export function progressUpdate(audio, progressBar, currentTEl, trackTEl) {
 
 export const handleLocalStorage = {
   save(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e) {
+      alert('Failed to save to local storage');
+    }
   },
   load(key) {
     return JSON.parse(localStorage.getItem(key));

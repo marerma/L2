@@ -11,6 +11,7 @@ import {
   PLAYLIST_SORT,
   VOLUME_BTN,
   VOL_RANGE_BTN,
+  LS_KEY,
 } from './config.js';
 import {
   handleProgressClick,
@@ -19,6 +20,7 @@ import {
   resetRepeatBtn,
   toggleVolumeBtn,
   updateVolumeRange,
+  handleLocalStorage,
 } from './helpers.js';
 
 export class PlayList extends Audio {
@@ -56,6 +58,7 @@ export class PlayList extends Audio {
     const newItem = this.createPlayItem(item);
     this.audioList.push(newItem);
     PLAYLIST.append(newItem.getItem());
+    handleLocalStorage.save(LS_KEY, this.playPlaylist);
   }
 
   createList(list) {
@@ -220,29 +223,23 @@ export class PlayList extends Audio {
   addSaveHandler() {
     AUDIO_INPUT.addEventListener('change', (e) => {
       const file = e.target.files[0];
-      // const newFile = {
-      //   id: Date.now(),
-      //   title: '',
-      //   src: '',
-      // };
-      // if (file) {
-      //   newFile.title = file.name.split('.')[0];
-      //   const reader = new FileReader();
-      //   reader.onload = function (e) {
-      //     const audioData = e.target.result;
-      //     console.log(e.target)
-      //     newFile.src = audioData;
-      //   };
 
-      //   reader.readAsDataURL(file);
-
-      const url = URL.createObjectURL(file);
       const newFile = {
         id: Date.now(),
-        title: file.name.split('.')[0],
-        src: url,
+        title: '',
+        src: '',
       };
-      this.addItem(newFile);
+      if (file) {
+        newFile.title = file.name.split('.')[0];
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const audioData = e.target.result;
+          newFile.src = audioData;
+        };
+        reader.readAsDataURL(file);
+
+        this.addItem(newFile);
+      }
     });
   }
 

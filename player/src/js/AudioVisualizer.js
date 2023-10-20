@@ -15,7 +15,11 @@ export class AudioVisualizer {
   }
 
   load(src, callback) {
-    this.waveform.load(src).then(callback);
+    try {
+      this.waveform.load(src).then(callback);
+    } catch (e) {
+      console.error(e.message);
+    }
   }
 
   play() {
