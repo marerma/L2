@@ -114,7 +114,16 @@ body {
 .hint__message {
   color: var(--metal);
   font-size: 2rem;
+}
 
+.small_message {
+  font-size: 1rem;
+  margin: 12px;
+  display: block;
+}
+
+.small_message_hidden {
+  display: none;
 }
 .item__title,
 .item__title label {

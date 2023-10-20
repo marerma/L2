@@ -18,6 +18,7 @@ export default class NumberCheckerForm {
     this.modal = new Modal();
     this.hintOne = document.querySelector('[data-msg="1"]');
     this.hintTwo = document.querySelector('[data-msg="2"]');
+    this.hintThree = document.querySelector('[data-msg="3"]');
   }
 
   // обновление данных чекера и обнуление формы
@@ -70,8 +71,13 @@ export default class NumberCheckerForm {
     this.checkerForm.elements.check.disabled = !this.gameIsLoaded;
 
     if (this.gameIsLoaded) {
-      reloadGameBtn.classList.remove('hidden')
-    } else reloadGameBtn.classList.add('hidden');
+      reloadGameBtn.classList.remove('hidden');
+      this.hintThree.classList.add('small_message_hidden');
+    } else {
+      reloadGameBtn.classList.add('hidden');
+      this.hintThree.classList.remove('small_message_hidden');
+
+    }
 
   }
   // показать модалку с сообщением о победе и кол-ве потраченных попыток в случе победы
