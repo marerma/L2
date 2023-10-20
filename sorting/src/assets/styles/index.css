@@ -1,0 +1,137 @@
+@import './normalize.css';
+
+:root {
+  --blue: #55868c;
+  --metal: #242f40;
+  --lila: #7f636e;
+  --dark-grey: #363636;
+  --pink: #cacaaa;
+  --fucsia: rgb(216, 16, 99);
+  --violet: rgb(88, 4, 114);
+}
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+* {
+  box-sizing: border-box;
+}
+p {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: stretch;
+  align-items: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+  background-color: var(--blue);
+  color: white;
+  padding: 2rem;
+  gap: 2rem;
+}
+
+main {
+  flex-grow: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+  justify-items: center;
+  align-items: center;
+}
+
+.sort__type-list {
+  list-style: none;
+  padding: 0;
+}
+.sort__type-item {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  align-items: center;
+}
+
+input[type='radio']:checked,
+input[type='radio']:not(:checked) {
+  display: block;
+  appearance: none;
+}
+
+input[type='radio']:checked,
+input[type='radio']:not(:checked) {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  background-color: #fff;
+  display: inline-block;
+  background-size: contain;
+}
+
+input[type='radio']:checked {
+  background-color: var(--violet);
+  border: 1px solid white;
+}
+input[type='radio']:checked + label {
+  color: var(--violet);
+  font-weight: 600;
+}
+
+input[type='radio']:checked,
+input[type='radio']:not(:checked) {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.block__container {
+  background-color: #fff;
+  width: max(900px, 90vw);
+  height: min(300px, 90vh);
+  display: grid;
+  align-items: end;
+}
+
+.column__item {
+  background-color: var(--lila);
+  border: 1px solid white;
+}
+
+.column__item_active {
+  background-color: var(--fucsia);
+  -webkit-animation: flash linear 1s infinite;
+  animation: flash linear 1.5s infinite;
+}
+
+.accent {
+  background-color: var(--violet);
+}
+
+@-webkit-keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}

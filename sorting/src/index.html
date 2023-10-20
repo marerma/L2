@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sort Visualization</title>
+    <link rel="stylesheet" href="./assets/styles/index.css" />
+  </head>
+  <body>
+    <header class="header"></header>
+    <main>
+      <div class="contorls__container">
+        <button>Создать массив</button>
+        <button type="button" name="start" id="start">Начать сортировку</button>
+        <ul class="sort__type-list">
+          <li class="sort__type-item">
+            <input
+              type="radio"
+              class="type-item__btn"
+              name="sortType"
+              checked
+              value="bubble"
+              id="bubble"
+            />
+            <label for="bubble" class="sort-item__label">Пузырьком</label>
+          </li>
+          <li class="sort__type-item">
+            <input
+              type="radio"
+              class="type-item__btn"
+              name="sortType"
+              value="select"
+              id="select"
+            />
+            <label for="select" class="sort-item__label">Выбором</label>
+          </li>
+          <li class="sort__type-item">
+            <input
+              type="radio"
+              class="type-item__btn"
+              name="sortType"
+              value="insertion"
+              id="insertion"
+            />
+            <label for="insertion" class="sort-item__label">Вставкой</label>
+          </li>
+          <li class="sort__type-item">
+            <input
+              type="radio"
+              class="type-item__btn"
+              name="sortType"
+              value="quick"
+              id="quick"
+            />
+            <label for="quick" class="sort-item__label">Быстрая</label>
+          </li>
+          <li class="sort__type-item">
+            <input
+              type="radio"
+              class="type-item__btn"
+              name="sortType"
+              value="merge"
+              id="merge"
+            />
+            <label for="merge" class="sort-item__label">Merge</label>
+          </li>
+        </ul>
+      </div>
+      <div class="block__container" id="block"></div>
+    </main>
+    <footer>@marerma</footer>
+    <script type="module" defer src="./js/index.js"></script>
+  </body>
+</html>
