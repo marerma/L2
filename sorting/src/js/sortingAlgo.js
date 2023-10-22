@@ -17,6 +17,10 @@ async function bubbleSort(array, state) {
       if (el1.height > el2.height) {
         swap(array, j, j + 1);
       }
+
+      while (state.getState().isPaused) {
+        await delay();
+      }
       await delay();
       el1.resetActive();
       el2.resetActive();
@@ -52,6 +56,9 @@ async function selectSort(array, state) {
         await delay();
         min = j;
       }
+      while (state.getState().isPaused) {
+        await delay();
+      }
       await delay();
       array[j].resetActive();
     }
@@ -66,21 +73,27 @@ async function selectSort(array, state) {
 }
 
 async function insertionSort(array, state) {
+  array[0].setAccent(true);
+
   for (let i = 1; i < array.length; i++) {
     if (!state.getState().isSorting) {
       Promise.resolve();
       return;
     }
+
     let j = i - 1;
     let currentHeight = array[i].height;
     array[i].setActive();
-    if (!state.getState().isSorting) {
-      Promise.resolve();
-      return;
-    }
+
     while (j >= 0 && array[j].height > currentHeight) {
+      if (!state.getState().isSorting) {
+        Promise.resolve();
+        return;
+      }
+      while (state.getState().isPaused) {
+        await delay();
+      }
       array[j].setActive();
-      array[j].setAccent(true);
       array[j + 1].setHeight(array[j].height);
 
       await delay();
@@ -88,53 +101,56 @@ async function insertionSort(array, state) {
       j--;
     }
     array[j + 1].setHeight(currentHeight);
+    array[i].setAccent(true);
     array[i].resetActive();
   }
-  array.at(-1).setAccent(true);
   Promise.resolve();
 }
 
-async function partition(items, left, right) {
-  const pivot = items[Math.floor((right + left) / 2)];
-
+async function partition(items, low, high, state) {
+  let pivot = items[high];
   pivot.setActive();
-  let i = left;
-  let j = right;
 
-  while (i <= j) {
-    while (items[i] < pivot) {
+  let i = low - 1;
+  for (let j = low; j <= high - 1; j++) {
+    if (items[j].height <= pivot.height) {
       i++;
-    }
-    while (items[j] > pivot) {
-      j--;
-    }
-    if (i <= j) {
       items[i].setActive();
-      items[j].setActive();
       swap(items, i, j);
-      i++;
-      j--;
       await delay();
       items[i].resetActive();
-      items[j].resetActive();
+      items[i].setAccent(true);
     }
   }
-  return i;
+
+  items[i + 1].setActive();
+  swap(items, i + 1, high);
+  await delay();
+  items[i + 1].resetActive();
+  items[i + 1].setAccent(true);
+
+  pivot.resetActive();
+  return i + 1;
 }
-async function quickSort(items, left, right) {
-  let index;
-  if (items.length > 1) {
-    index = await partition(items, left, right);
-    if (left < index - 1) {
-      await quickSort(items, left, index - 1);
+async function quickSort(items, left, right, state) {
+  // if (!state.getState().isSorting) {
+  //   Promise.resolve();
+  //   return;
+  // }
+  if (left < right) {
+    let pi = await partition(items, left, right, state);
+
+    while (state.getState().isPaused) {
+      await delay();
     }
-    if (index < right) {
-      await quickSort(items, index, right);
-    }
+
+    await quickSort(items, left, pi - 1, state);
+    await quickSort(items, pi + 1, right, state);
+    items.at(-1).setAccent(true);
   }
 }
 async function quickSortFn(array, state) {
-  await quickSort(array, 0, array.length - 1);
+  await quickSort(array, 0, array.length - 1, state);
 }
 
 const sortArrayFn = {

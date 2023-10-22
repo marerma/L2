@@ -10,8 +10,7 @@
     <header class="header"></header>
     <main>
       <div class="contorls__container">
-        <button>Создать массив</button>
-        <button type="button" name="start" id="start">Начать сортировку</button>
+        Тип сортировки:
         <ul class="sort__type-list">
           <li class="sort__type-item">
             <input
@@ -65,6 +64,32 @@
             <label for="merge" class="sort-item__label">Merge</label>
           </li>
         </ul>
+        <div class="control__item">
+          <label for="arraySize" class="size-label">
+            Размер массива:
+            <input
+              type="text"
+              id="arraySize"
+              placeholder="размер массива"
+              value="5"
+            />
+            <span>от 1 до 500</span>
+          </label>
+          <button class="button" type="button" name="createNew" id="createNew">
+            Создать новый массив
+          </button>
+          <button class="button" type="button" name="start" id="start">
+            Старт
+          </button>
+          <button
+            class="button"
+            type="button"
+            name="resetAnimation"
+            id="resetAnimation"
+          >
+            Начать заново
+          </button>
+        </div>
       </div>
       <div class="block__container" id="block"></div>
     </main>

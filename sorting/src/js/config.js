@@ -1,6 +1,9 @@
 const BLOCK = document.getElementById('block');
 const START_BTN = document.querySelector("button[name='start']");
-const DEFAULT_LENGTH = 10;
+const CREATE_NEW = document.querySelector("button[name='createNew']");
+const RESET_BTN = document.querySelector("button[name='resetAnimation']");
+const ARRAY_SIZE_INPUT = document.getElementById('arraySize');
+const DEFAULT_LENGTH = 15;
 const DEFAULT_DELAY = 150;
 
 const SORT_TYPE = {
@@ -11,9 +14,11 @@ const SORT_TYPE = {
   quick: 'quick',
 };
 
+const DEFAULT_SORT = SORT_TYPE.quick;
+
 const SORT_BTN_TEXT = {
-  start: 'Начать сортировку',
-  stop: 'Остановить сортировку',
+  start: 'Старт',
+  stop: 'Пауза',
 };
 export {
   BLOCK,
@@ -22,4 +27,8 @@ export {
   START_BTN,
   DEFAULT_DELAY,
   DEFAULT_LENGTH,
+  CREATE_NEW,
+  ARRAY_SIZE_INPUT,
+  RESET_BTN,
+  DEFAULT_SORT,
 };

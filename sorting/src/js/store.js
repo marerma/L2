@@ -8,6 +8,16 @@ function reducer(state, actionType, payload) {
       state.isSorting = payload;
       break;
     }
+    case 'createNew': {
+      state.initialState = payload;
+      break;
+    }
+    case 'setPlayPause': {
+      state.isPaused = payload;
+      break;
+    }
+    default:
+      return state;
   }
   return state;
 }
