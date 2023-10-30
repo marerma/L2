@@ -1,3 +1,4 @@
+// создание и редьюсер стейта
 function reducer(state, actionType, payload) {
   switch (actionType) {
     case 'changeSort': {
@@ -6,10 +7,6 @@ function reducer(state, actionType, payload) {
     }
     case 'setSortingStatus': {
       state.isSorting = payload;
-      break;
-    }
-    case 'createNew': {
-      state.initialState = payload;
       break;
     }
     case 'setPlayPause': {

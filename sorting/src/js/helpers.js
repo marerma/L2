@@ -1,5 +1,6 @@
 import { ARRAY_SIZE_INPUT, DEFAULT_DELAY, DEFAULT_LENGTH } from './config.js';
 
+// функция для задержки при смене стилей колонок
 function delay(ms = DEFAULT_DELAY) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -8,7 +9,8 @@ function delay(ms = DEFAULT_DELAY) {
   });
 }
 
-function createArray(length = 50) {
+// создание нового массива
+function createArray(length = DEFAULT_LENGTH) {
   const arr = [];
 
   for (let i = 1; i <= length; i++) {
@@ -21,28 +23,7 @@ function updateText(node, text) {
   node.textContent = text;
 }
 
-function handleSortChange(state, list) {
-  const sortTypeBtns = document.querySelectorAll('input[name="sortType"]');
-  for (const btn of sortTypeBtns) {
-    btn.addEventListener('change', (e) => {
-      const value = e.target.value;
-      state.dispatch('changeSort', value);
-      state.dispatch('setSortingStatus', false);
-      state.dispatch('setPlayPause', false);
-      list.resetItemsStyle();
-    });
-  }
-}
-
-function updateInitialSortType(defaultV) {
-  const sortTypeBtns = document.querySelectorAll('input[name="sortType"]');
-  for (const btn of sortTypeBtns) {
-    if (btn.value === defaultV) {
-      btn.checked = true;
-    }
-  }
-}
-
+// хэндлер сортировки: обновление изначального типа, слушатель на смену типа сотрировки
 function sortBtnHandler() {
   const sortTypeBtns = document.querySelectorAll('input[name="sortType"]');
 
@@ -75,6 +56,7 @@ function sortBtnHandler() {
 
 const handleSort = sortBtnHandler();
 
+// валидация размера массива, в данной реализации ограничено 500 элементами
 function validateArraySize() {
   let value = ARRAY_SIZE_INPUT.value.replace(/[^0-9]/g, '');
 
@@ -88,21 +70,22 @@ function validateArraySize() {
   ARRAY_SIZE_INPUT.value = value;
 }
 
-function resetList(list) {
-  const value = ARRAY_SIZE_INPUT.value || DEFAULT_LENGTH;
-  list.setLength(value);
-  list.updateListNums(value);
-  list.renderList();
+// изменение статуса инпутов и кнопок
+function setDisabledBtns(value) {
+  if (value) {
+    ARRAY_SIZE_INPUT.setAttribute('readonly', true);
+  } else {
+    ARRAY_SIZE_INPUT.removeAttribute('readonly');
+  }
+  handleSort.disable(value);
 }
 
 export {
   createArray,
   delay,
   handleSort,
-  handleSortChange,
-  resetList,
   sortBtnHandler,
-  updateInitialSortType,
   updateText,
   validateArraySize,
+  setDisabledBtns,
 };

@@ -1,16 +1,19 @@
-import { BLOCK } from './config.js';
+import { BLOCK, ARRAY_SIZE_INPUT, DEFAULT_LENGTH } from './config.js';
 import { createArray } from './helpers.js';
 
-class ListItem {
+// Элемент-колонка, имеет высоту, по которой идет сортировка
+export class ListItem {
   constructor(height) {
     this.node = document.createElement('div');
     this.height = height;
+    this.id = Date.now();
   }
 
   setHeight(h) {
     this.height = h;
     this.node.style.height = h + 'px';
   }
+
   createNode() {
     this.node.classList.add('column__item');
     this.node.style.height = this.height + 'px';
@@ -32,12 +35,12 @@ class ListItem {
   }
 }
 
+// Список элементов-колонок с методами управления
 class List {
   constructor(length) {
     this.listNums = [];
     this.nodesList = [];
     this.length = length;
-    this.updateListNums(this.length);
   }
 
   getListNums() {
@@ -47,12 +50,13 @@ class List {
   setLength(n) {
     this.length = n;
   }
+
   createList() {
     this.listNums = createArray(this.length);
+    this.updateNodeList();
   }
 
-  updateListNums() {
-    this.createList(this.length);
+  updateNodeList() {
     this.nodesList = this.listNums.map((element) => new ListItem(element));
   }
 
@@ -67,6 +71,13 @@ class List {
       item.setAccent();
       item.resetActive();
     });
+  }
+
+  resetList() {
+    const value = ARRAY_SIZE_INPUT.value || DEFAULT_LENGTH;
+    this.setLength(value);
+    this.createList();
+    this.renderList();
   }
 }
 

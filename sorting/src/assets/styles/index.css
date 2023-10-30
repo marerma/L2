@@ -89,6 +89,9 @@ input[type='radio']:disabled + label {
   color: #242f40;
 }
 
+input[type='radio']:not(:disabled) + label:hover {
+  cursor: pointer;
+}
 input[type='radio']:checked,
 input[type='radio']:not(:checked) {
   -webkit-transition: all 0.5s ease;
@@ -169,11 +172,16 @@ input[type='radio']:not(:checked) {
 .button:focus {
   background-color: var(--fucsia);
   transition: all 0.5 ease;
+  cursor: pointer;
 }
 .button:focus {
   outline: 3px solid var(--lila);
 }
 
+.button:disabled:hover {
+  background-color: #fff;
+  cursor: default;
+}
 input[type='text'] {
   background-color: #fff;
   outline: none;
@@ -184,4 +192,11 @@ input[type='text'] {
 
 input[type='text']:focus {
   border: 1px solid var(--fucsia);
+}
+
+input[type='text']:read-only,
+input[type='text']:read-only:focus {
+  background-color: rgb(136, 136, 136);
+  border: 1px solid rgb(136, 136, 136);
+  color: var(--dark-grey);
 }

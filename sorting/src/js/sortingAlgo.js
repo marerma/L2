@@ -1,12 +1,14 @@
 import { SORT_TYPE } from './config.js';
 import { delay } from './helpers.js';
 
+// функция для обмена высотой между элементами
 function swap(items, leftIndex, rightIndex) {
   const temp = items[leftIndex].height;
   items[leftIndex].setHeight(items[rightIndex].height);
   items[rightIndex].setHeight(temp);
 }
 
+// сортировка пузырьком
 async function bubbleSort(array, state) {
   for (let i = 0; i < array.length; i++) {
     for (let j = 0; j < array.length - i - 1; j++) {
@@ -18,6 +20,7 @@ async function bubbleSort(array, state) {
         swap(array, j, j + 1);
       }
 
+      // если сортровка на паузе, то ожиать пока состояние не изменится на страт
       while (state.getState().isPaused) {
         await delay();
       }
@@ -35,6 +38,7 @@ async function bubbleSort(array, state) {
   Promise.resolve();
 }
 
+// сортировка выбором
 async function selectSort(array, state) {
   let n = array.length;
 
@@ -45,7 +49,6 @@ async function selectSort(array, state) {
     }
 
     let min = i;
-    array[min].setAccent(true);
     for (let j = i; j < n; j++) {
       if (!state.getState().isSorting) {
         Promise.resolve();
@@ -66,12 +69,15 @@ async function selectSort(array, state) {
     if (min != i) {
       swap(array, i, min);
       await delay();
-      array[min].setAccent();
+      array[i].setAccent(true);
+    } else {
+      array[min].setAccent(true);
     }
   }
   Promise.resolve();
 }
 
+// сорировка вставками
 async function insertionSort(array, state) {
   array[0].setAccent(true);
 
@@ -107,7 +113,9 @@ async function insertionSort(array, state) {
   Promise.resolve();
 }
 
-async function partition(items, low, high, state) {
+// быстрая сортировка
+// функция для разделения массива
+async function partition(items, low, high) {
   let pivot = items[high];
   pivot.setActive();
 
@@ -133,10 +141,6 @@ async function partition(items, low, high, state) {
   return i + 1;
 }
 async function quickSort(items, left, right, state) {
-  // if (!state.getState().isSorting) {
-  //   Promise.resolve();
-  //   return;
-  // }
   if (left < right) {
     let pi = await partition(items, left, right, state);
 
@@ -153,12 +157,120 @@ async function quickSortFn(array, state) {
   await quickSort(array, 0, array.length - 1, state);
 }
 
+async function merge(array, low, mid, high, state) {
+  const lengthL = mid - low + 1;
+  const lengthR = high - mid;
+  let left = new Array(lengthL);
+  let right = new Array(lengthR);
+
+  while (state.getState().isPaused) {
+    await delay();
+  }
+
+  for (let i = 0; i < lengthL; i++) {
+    array[low + i].setActive();
+    left[i] = array[low + i].height;
+    await delay();
+
+    array[low + i].resetActive();
+  }
+  for (let i = 0; i < lengthR; i++) {
+    array[mid + 1 + i].setActive();
+    right[i] = array[mid + 1 + i].height;
+    await delay();
+    array[mid + 1 + i].resetActive();
+  }
+
+  await delay();
+  let i = 0,
+    j = 0,
+    k = low;
+
+  while (i < lengthL && j < lengthR) {
+    if (parseInt(left[i]) <= parseInt(right[j])) {
+      if (lengthL + lengthR === array.length) {
+        array[k].setAccent(true);
+      } else {
+        array[k].setAccent(true);
+      }
+
+      while (state.getState().isPaused) {
+        await delay();
+      }
+
+      array[k].setHeight(left[i]);
+      i++;
+      k++;
+    } else {
+      if (lengthL + lengthR === array.length) {
+        array[k].setAccent(true);
+      } else {
+        array[k].setAccent(true);
+      }
+      array[k].setHeight(right[j]);
+      j++;
+      k++;
+    }
+  }
+
+  while (i < lengthL) {
+    await delay();
+    if (lengthL + lengthR === array.length) {
+      array[k].setAccent(true);
+    } else {
+      array[k].setAccent(true);
+    }
+    while (state.getState().isPaused) {
+      await delay();
+    }
+    array[k].setHeight(left[i]);
+    i++;
+    k++;
+  }
+  while (j < lengthR) {
+    await delay();
+
+    if (lengthL + lengthR === array.length) {
+      array[k].setAccent(true);
+    } else {
+      array[k].setAccent(true);
+    }
+    while (state.getState().isPaused) {
+      await delay();
+    }
+    array[k].setHeight(right[j]);
+    j++;
+    k++;
+  }
+}
+
+async function mergeSort(array, l, r, state) {
+  if (l >= r) {
+    return;
+  }
+  const m = l + Math.floor((r - l) / 2);
+  while (state.getState().isPaused) {
+    await delay();
+  }
+  await mergeSort(array, l, m, state);
+  await mergeSort(array, m + 1, r, state);
+  while (state.getState().isPaused) {
+    await delay();
+  }
+  await merge(array, l, m, r, state);
+}
+
+async function mergeSortFn(array, state) {
+  await mergeSort(array, 0, array.length - 1, state);
+}
+
+// вспомогательный "словарь" для быстрого определения нужной функции
 const sortArrayFn = {
   [SORT_TYPE.bubble]: bubbleSort,
   [SORT_TYPE.select]: selectSort,
   [SORT_TYPE.insertion]: insertionSort,
-  [SORT_TYPE.merge]: bubbleSort,
   [SORT_TYPE.quick]: quickSortFn,
+  [SORT_TYPE.merge]: mergeSortFn,
 };
 
-export { bubbleSort, sortArrayFn };
+export { sortArrayFn };
