@@ -1,5 +1,6 @@
 import { TEMPLATE_AUDIO } from './config.js';
 
+// компонент аудио - интерфейс с кнопками и стилями
 export class PlayItem {
   constructor({ src, title, id }) {
     this.src = src;

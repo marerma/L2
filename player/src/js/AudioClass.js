@@ -1,5 +1,8 @@
 import { AudioVisualizer } from './AudioVisualizer.js';
 import { AUDIO_TRACK_PROGRESS } from './config.js';
+
+// базовый класс аудио с методами плей, пауза, изменения громкости
+// с встроенным визуалайзером
 export class Audio {
   static visualizer = new AudioVisualizer();
 

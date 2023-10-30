@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -89,7 +89,7 @@ body {
   border-radius: 1rem;
   border: 1px solid transparent;
   outline: solid 1px var(--blue);
-  color: var(--metal);
+  color: black;
 }
 .sbm__btn:hover, .btn:hover {
   cursor: pointer;
@@ -180,6 +180,7 @@ body {
 .custom__level {
   margin: 1rem 0;
   position: relative;
+  text-align: left;
 }
 
 .custom__level:hover {
@@ -191,7 +192,6 @@ body {
   bottom: 0px;
   right: -10px;
   transition: all ease 0.2s;
-
 }
 
 .open {

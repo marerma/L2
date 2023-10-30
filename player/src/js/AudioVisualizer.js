@@ -1,5 +1,6 @@
 import WaveSurfer from 'https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js';
 
+//класс управления визуализацией аудио
 export class AudioVisualizer {
   constructor() {
     this.waveform = WaveSurfer.create({

@@ -23,6 +23,7 @@ import {
   handleLocalStorage,
 } from './helpers.js';
 
+// плейлист с методами управления - проигрывание в двух типах (по порядку, в случайном порядке)
 export class PlayList extends Audio {
   constructor() {
     super();
@@ -42,9 +43,15 @@ export class PlayList extends Audio {
   createPlayItem({ src, title, id }) {
     const element = new PlayItem({ src, title, id });
     element.playBtn.addEventListener('click', () => {
+      resetRepeatBtn();
+      this.loop.id = null;
+      this.loop.on = false;
       this.controlPlaying(element);
     });
     element.titleEl.addEventListener('click', () => {
+      resetRepeatBtn();
+      this.loop.id = null;
+      this.loop.on = false;
       this.controlPlaying(element);
     });
     element.repeatBtn.addEventListener('click', () => {
@@ -65,6 +72,7 @@ export class PlayList extends Audio {
     return list.map((el) => this.createPlayItem(el));
   }
 
+  // генерация индекса следующего трека в зависимости от типа проигрывания
   generateNextIndex() {
     switch (this.playingMode) {
       case PLAYLIST_SORT.direct:
@@ -87,6 +95,7 @@ export class PlayList extends Audio {
       this.playingIndex = this.audioList.findIndex(
         (el) => el.id === audioElement.id
       );
+      this.generateNextIndex();
     }
 
     if (Audio.currentPlayingId !== audioElement.id) {
@@ -122,19 +131,6 @@ export class PlayList extends Audio {
     });
   }
 
-  mute() {
-    if (Audio.isMuted) {
-      Audio.unmute();
-      updateVolumeRange(Audio.volume);
-    } else {
-      Audio.mute();
-      updateVolumeRange();
-    }
-  }
-
-  setVolume(volume) {
-    Audio.changeVolume(volume);
-  }
   changePlaylistMode(mode, el) {
     this.stopAll();
     this.playingMode = mode;
@@ -153,13 +149,29 @@ export class PlayList extends Audio {
       }
     }
   }
+
   playPlaylist() {
     Audio.visualizer.load(this.audioList[this.playingIndex].src, () => {
+      console.log(this.playingIndex)
       Audio.currentPlayingId = this.audioList[this.playingIndex].id;
       this.audioList[this.playingIndex].play();
       Audio.play();
       this.generateNextIndex();
     });
+  }
+
+  mute() {
+    if (Audio.isMuted) {
+      Audio.unmute();
+      updateVolumeRange(Audio.volume);
+    } else {
+      Audio.mute();
+      updateVolumeRange();
+    }
+  }
+
+  setVolume(volume) {
+    Audio.changeVolume(volume);
   }
 
   addVolumeHandlers() {

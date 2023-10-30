@@ -4,6 +4,8 @@ import {
   VOLUME_BTN,
   VOL_RANGE_BTN,
 } from './config.js';
+
+//обновление таймера на треке
 export function updateUITimer(
   currentTrackTimeEl,
   trackTime,
@@ -16,6 +18,7 @@ export function updateUITimer(
   currentTrackTimeEl.textContent = `${currentTime.getMinutes()}:${currentSec}`;
 }
 
+// форматирование времени
 export function formatTime(duration) {
   const trackDuration = new Date(duration * 1000);
   return duration
@@ -23,6 +26,7 @@ export function formatTime(duration) {
     : '00:00';
 }
 
+// подсчет времени трека при клике
 export function handleProgressClick(audio, progressBar, event) {
   let width = progressBar.offsetWidth;
   let pointer = event.offsetX;
@@ -30,6 +34,7 @@ export function handleProgressClick(audio, progressBar, event) {
   audio.currentTime = audio.duration * (pointer / width);
 }
 
+// обновление таймера при проигрывании аудио
 export function progressUpdate(audio, progressBar, currentTEl, trackTEl) {
   let duration = audio.duration;
   let current = audio.currentTime;
@@ -48,6 +53,7 @@ export function progressUpdate(audio, progressBar, currentTEl, trackTEl) {
   updateUITimer(currentTEl, trackTEl, duration, current);
 }
 
+// вспомогательная функция для работы с локальным хранилищем
 export const handleLocalStorage = {
   save(key, value) {
     try {
@@ -64,6 +70,7 @@ export const handleLocalStorage = {
   },
 };
 
+// преобразование файла в блоб для сохранения в локальном хранилище
 export function blobToBase64(blob) {
   const reader = new FileReader();
   reader.readAsDataURL(blob);
@@ -74,11 +81,13 @@ export function blobToBase64(blob) {
   });
 }
 
+// обнуление кнопок плея и паузы
 export function resetPlaylistModeBtn() {
   PLAYLIST_PLAY_BTN.classList.remove('active-playlist');
   PLAYLIST_SHUFFLE_BTN.classList.remove('active-playlist');
 }
 
+// обнуление стиля активной кнопки зацикливания кнопки
 export function resetRepeatBtn() {
   const allRepeat = document.querySelectorAll('.repeat-icon');
   for (const node of allRepeat) {
@@ -86,6 +95,7 @@ export function resetRepeatBtn() {
   }
 }
 
+// смена иконки громкости
 export function toggleVolumeBtn(value) {
   if (value === 0) {
     VOLUME_BTN.classList.add('volume-icon-mute');

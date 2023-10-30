@@ -3,6 +3,7 @@ import PLAY_LIST_DEFAULT from './playlist.js';
 import { handleLocalStorage } from './helpers.js';
 import { LS_KEY } from './config.js';
 
+// создаем контекст для активации возможности загрузки визуалайзера
 window.onload = function () {
   const context = new AudioContext();
   document.addEventListener('click', function () {
@@ -12,6 +13,7 @@ window.onload = function () {
 
 let initialList = [];
 
+// загрузка плейлиста из локального хранилища или дефолтного списка
 window.addEventListener('DOMContentLoaded', () => {
   const playlist = new PlayList();
   if (handleLocalStorage.has(LS_KEY)) {
@@ -23,6 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
   playlist.renderList();
 });
 
+// сохранение списка в локальном хранилище перед закрытием вкладки
 window.addEventListener('beforeunload', function (event) {
   event.preventDefault();
   handleLocalStorage.save(LS_KEY, initialList);
