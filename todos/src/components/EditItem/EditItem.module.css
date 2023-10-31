@@ -1,0 +1,39 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  width: 100%;
+}
+
+.error {
+  font-size: 12px;
+  color: var(--error);
+}
+
+.btn_container {
+  width: 100%;
+  max-width: 300px;
+}
+
+.icon {
+  color: var(--main);
+  max-width: 24px;
+}
+
+.icon:hover {
+  color: var(--accent);
+  cursor: pointer;
+}

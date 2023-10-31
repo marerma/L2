@@ -1,0 +1,87 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 18px;
+  color-scheme: light dark;
+  color: var(--main);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --error: rgb(233, 80, 80);
+  --blue: rgb(142, 149, 255);
+  --accent: rgb(223, 29, 213);
+  --accent2: rgba(223, 29, 213, 0.4);
+  --grey: rgb(209, 203, 203);
+  --main: rgb(9, 8, 90);
+  --bg: rgb(204, 204, 255);
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+
+input::placeholder,
+textarea::placeholder,
+textarea,
+input[type="datetime-local"],
+input[type="datetime-local"]::placeholder {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+.button_main {
+  outline: var(--blue) 1px solid;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: white;
+  width: 100%;
+}
+
+.button_main:focus {
+  outline: var(--accent) 1px solid;
+  transition: all ease 0.4s;
+}
+.button_main:hover {
+  cursor: pointer;
+  outline: var(--accent) 1px solid;
+  transition: all ease 0.4s;
+  background-color: var(--accent2);
+}
+
+.button_main:disabled, 
+.button_main:disabled:hover {
+  outline: grey 1px solid;
+  transition: all ease 0.4s;
+  background-color: var(--grey);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--bg);
+  color: var(--main);
+  position: relative;
+}
+
+#modal {
+  position: relative;
+}

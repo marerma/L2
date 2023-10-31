@@ -1,0 +1,7 @@
+.wrapper {
+  max-width: 1200px;
+  width: 100%;
+  flex-grow: 1;
+  padding: 1rem;
+  text-align: center;
+}
