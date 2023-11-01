@@ -1,0 +1,46 @@
+.icon,
+.icon_active {
+  cursor: pointer;
+  font-size: 20px;
+  font-size: 700;
+}
+
+.icon_wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+.icon_wrapper:first-of-type {
+  justify-content: flex-start;
+}
+.icon_active {
+  color: var(--accent);
+  font-size: 700;
+}
+
+.item_main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  padding: 1rem 0;
+}
+
+.item_main > :first-child {
+  flex: 2;
+  text-align: left;
+}
+
+.item_main > :not(:first-child) {
+  flex: 1;
+  text-align: center;
+}
+
+.icon_title {
+  flex-grow: 2;
+  justify-self: flex-start;
+  margin: 0;
+}

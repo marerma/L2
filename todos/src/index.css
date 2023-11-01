@@ -29,8 +29,8 @@ body {
 input::placeholder,
 textarea::placeholder,
 textarea,
-input[type="datetime-local"],
-input[type="datetime-local"]::placeholder {
+input[type='datetime-local'],
+input[type='datetime-local']::placeholder {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 a {
@@ -62,7 +62,7 @@ a:hover {
   background-color: var(--accent2);
 }
 
-.button_main:disabled, 
+.button_main:disabled,
 .button_main:disabled:hover {
   outline: grey 1px solid;
   transition: all ease 0.4s;

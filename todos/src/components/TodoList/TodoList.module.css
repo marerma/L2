@@ -20,24 +20,3 @@
   border-radius: 1rem;
   padding: 0 1rem;
 }
-
-.item_main {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  text-overflow: ellipsis;
-  font-weight: 700;
-}
-
-.item_time {
-  min-width: 200px;
-}
-.item_title,
-.item_title_completed,
-.item_body,
-.item_body_completed {
-  flex-grow: 2;
-  justify-self: flex-start;
-  margin: 0;
-}
