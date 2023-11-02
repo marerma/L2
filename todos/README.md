@@ -1,8 +1,25 @@
-# React + Vite
+## Приложение «Планировщик задач»
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Веб-приложение, помогающее пользователям управлять своим временем.
 
-Currently, two official plugins are available:
+**[Деплой](https://marerma-todos.netlify.app/)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Функционал:**
+Создание новых задач, с указанием следующей информации:
+- название 
+- описание (опционально)
+- срок выполнения (дата и время)
+Просмотр существующих задач с возможностью сортировки по дате создания или сроку выполнения.
+Управление задачами:
+- пометка задач как выполненных
+- изменение задачи
+- удаление задачи
+Уведомления о задачах, срок выполнения которых приближается (в браузере).
+
+**Стек:**
+Фронтенд: React
+Хранение данных: используйте хранилище браузера (localStorage, sessionStorage и т.д.).
+Уведомления: для уведомлений в браузере использован Service Worker. 
+
+**Запуск**
+```npm run dev```

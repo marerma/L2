@@ -19,3 +19,8 @@
 [Код](https://github.com/marerma/L2/tree/main/sorting)
 
 [Деплой](https://marerma-sorting-visualization.netlify.app/) 
+
+### Приложение «Планировщик задач»	
+[Код](https://github.com/marerma/L2/tree/main/todos)
+
+[Деплой](https://marerma-todos.netlify.app/) 
