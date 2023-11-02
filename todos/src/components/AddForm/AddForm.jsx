@@ -33,8 +33,10 @@ export default function AddForm({ handleForm, handleClose, initialValues = initi
   return (
     <form className={styles.form} onSubmit={handleAddTask}>
       <div className={styles.formItem}>
+        <label htmlFor="title">Название задачи</label>
         <input
           name="title"
+          id="title"
           type="text"
           value={form.title}
           onChange={handleChange}
@@ -44,8 +46,10 @@ export default function AddForm({ handleForm, handleClose, initialValues = initi
         <span className={styles.error}>{errors.title}</span>
       </div>
       <div className={styles.formItem}>
+      <label htmlFor="body">Описание задачи</label>
         <textarea
           name="body"
+          id="body"
           value={form.body}
           onChange={handleChange}
           rows={5}
@@ -54,9 +58,11 @@ export default function AddForm({ handleForm, handleClose, initialValues = initi
         />
       </div>
       <div className={styles.formItem}>
+      <label htmlFor="deadline">Дедлайн</label>
         <input
           type="datetime-local"
           name="deadline"
+          id="deadline"
           value={form.deadline}
           onChange={handleChange}
           className={styles.inputText}
