@@ -11,6 +11,11 @@
   gap: 1rem;
 }
 
+.list_btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
 .item {
   width: 100%;
   text-align: justify;

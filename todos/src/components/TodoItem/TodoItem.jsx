@@ -1,7 +1,7 @@
 import { EditItem } from 'components';
 import { useState } from 'react';
 import { ACTIONS } from '@/config';
-import DeleteIcon from '@/assets/DeleteIcon';
+import DeleteIcon from './assets/DeleteIcon';
 import { dateToLocalDateTime } from '@/utils/utils';
 import styles from './TodoItem.module.css';
 

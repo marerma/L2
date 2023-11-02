@@ -7,4 +7,5 @@ export { default as TodoList } from './TodoList/TodoList.jsx';
 export { default as Modal } from './Modal/Modal.jsx';
 export { default as EditItem } from './EditItem/EditItem.jsx';
 export { default as SortIcon } from './SortIcon/SortIcon.jsx';
+export { default as NotificationRequest } from './NotificationRequest/NotificationRequest.jsx';
 export { default as SortComponent } from './SortComponent/SortComponent.jsx';

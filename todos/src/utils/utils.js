@@ -45,7 +45,6 @@ export function sortList(arr, type, direction) {
     if (type === SORT_TYPES.title) {
       return direction === SORT_DIRECTION.asc ? a[type].localeCompare(b[type]) : b[type].localeCompare(a[type]);
     } else {
-      console.log(new Date(a[type]), new Date(b[type]));
       return direction === SORT_DIRECTION.asc
         ? new Date(a[type]) - new Date(b[type])
         : new Date(b[type]) - new Date(a[type]);
@@ -53,4 +52,24 @@ export function sortList(arr, type, direction) {
   };
 
   return arr.sort(compareFn);
+}
+
+//проверка дел для уведомления, diff - время до наступления дедлайна, по дефолту не ранее, чем за 1ч
+
+export function checkItemsToNotify(list, diff = 1 * 60 * 60 * 1000) {
+  let currentDate = Date.now();
+  const itemsToNotify = [];
+
+  for (const item of list) {
+    const { deadline, id, title, isCompleted } = item;
+    let diffT = new Date(deadline) - new Date(currentDate);
+    if (diffT <= diff && diffT > 0 && !isCompleted) {
+      itemsToNotify.push({ id, title, message: getNotificationMessage(title, deadline) });
+    }
+  }
+  return itemsToNotify;
+}
+
+export function getNotificationMessage(title, deadline) {
+  return `Приближается дедлайн задачи ${title}. Срок истекает в ${dateToLocalDateTime(deadline)}`;
 }

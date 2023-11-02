@@ -15,7 +15,7 @@
   border-radius: 1rem;
   border: 1px solid var(--main);
   width: 60%;
-  height: 60%;
+  height: max(60vh, 500px);
   background-color: #fff;
   display: flex;
   flex-direction: column;

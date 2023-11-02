@@ -12,7 +12,7 @@ export const ACTIONS = {
 
 export const ERRORS_MSG = {
   title: 'Поле необходимо заполнить',
-  deadline: 'Поле необходимо заполнить',
+  deadline: 'Дедлайн необходимо заполнить',
 };
 
 export const TIME_OPTIONS = {
@@ -33,3 +33,5 @@ export const SORT_TYPES = {
   deadline: 'deadline',
   title: 'title',
 };
+
+export const CHECK_FREQUENCY = 5 * 60 * 1000;

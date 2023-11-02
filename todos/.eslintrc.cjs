@@ -26,6 +26,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
-    'import/no-unresolved': 'off'
+    'import/no-unresolved': 'off',
   },
 };
