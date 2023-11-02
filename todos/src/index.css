@@ -45,7 +45,7 @@ a:hover {
 .button_main {
   outline: var(--blue) 1px solid;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 5px;
   border: none;
   background-color: white;
   width: 100%;

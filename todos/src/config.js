@@ -1,6 +1,7 @@
 export const LS_KEY = {
   todoList: '_todolist',
   sortType: '_sortType',
+  token: '_token',
 };
 export const ACTIONS = {
   delete: 'deleteTodo',

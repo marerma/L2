@@ -4,3 +4,8 @@
   text-align: center;
   background-color: #fff;
 }
+
+.header_btn {
+  max-width: 300px;
+  margin: 0 auto;
+}

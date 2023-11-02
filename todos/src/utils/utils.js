@@ -30,6 +30,9 @@ export const handleLocalStorage = {
   has(key) {
     return localStorage.getItem(key);
   },
+  delete(key) {
+    localStorage.removeItem(key);
+  },
 };
 
 // преобразование времени в удобочитаемый формат
@@ -72,4 +75,16 @@ export function checkItemsToNotify(list, diff = 1 * 60 * 60 * 1000) {
 
 export function getNotificationMessage(title, deadline) {
   return `Приближается дедлайн задачи ${title}. Срок истекает в ${dateToLocalDateTime(deadline)}`;
+}
+
+export function generateToken(username) {
+  const symbols = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let token = '';
+
+  for (let i = 0; i < 12; i++) {
+    const randomIndex = Math.floor(Math.random() * symbols.length);
+    token += symbols[randomIndex];
+  }
+
+  return token + username;
 }

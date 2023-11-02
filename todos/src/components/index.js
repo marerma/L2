@@ -9,3 +9,4 @@ export { default as EditItem } from './EditItem/EditItem.jsx';
 export { default as SortIcon } from './SortIcon/SortIcon.jsx';
 export { default as NotificationRequest } from './NotificationRequest/NotificationRequest.jsx';
 export { default as SortComponent } from './SortComponent/SortComponent.jsx';
+export { default as Login } from './Login/Login.jsx';
