@@ -46,7 +46,7 @@ export default function AddForm({ handleForm, handleClose, initialValues = initi
         <span className={styles.error}>{errors.title}</span>
       </div>
       <div className={styles.formItem}>
-      <label htmlFor="body">Описание задачи</label>
+        <label htmlFor="body">Описание задачи</label>
         <textarea
           name="body"
           id="body"
@@ -58,7 +58,7 @@ export default function AddForm({ handleForm, handleClose, initialValues = initi
         />
       </div>
       <div className={styles.formItem}>
-      <label htmlFor="deadline">Дедлайн</label>
+        <label htmlFor="deadline">Дедлайн</label>
         <input
           type="datetime-local"
           name="deadline"

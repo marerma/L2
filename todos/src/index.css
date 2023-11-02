@@ -3,13 +3,8 @@
   line-height: 1.5;
   font-weight: 400;
   font-size: 18px;
-  color-scheme: light dark;
   color: var(--main);
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   --error: rgb(233, 80, 80);
   --blue: rgb(142, 149, 255);
