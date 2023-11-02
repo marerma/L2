@@ -26,14 +26,16 @@ export default function TodoItem({ item, handleAction }) {
   return (
     <div className={styles.item}>
       <div className={styles.item_main}>
-        <input type="checkbox" checked={completed} className="checkbox" onChange={handleComplete} />
-        <p className={completed ? styles.item_title_completed : styles.item_title}>{title}</p>
-        <p className={completed ? styles.item_time_completed : styles.item_time}>{dateToLocalDateTime(deadline)}</p>
-        <p className={completed ? styles.item_time_completed : styles.item_time}>{dateToLocalDateTime(created)}</p>
+        <input type="checkbox" checked={isCompleted} className="checkbox" onChange={handleComplete} />
+        <p className={isCompleted ? styles.item_title_completed : styles.item_title}>{title}</p>
+        <p className={isCompleted ? styles.item_time_completed : styles.item_time}>{dateToLocalDateTime(deadline)}</p>
+        <p className={isCompleted ? styles.item_time_completed_hidden : styles.item_time_hidden}>
+          {dateToLocalDateTime(created)}
+        </p>
         <DeleteIcon className={styles.icon} handleDelete={handleDelete} />
         <EditItem handleEdit={handleEdit} title={title} body={body} deadline={deadline} />
       </div>
-      <div>{body && <p className={completed ? styles.item_body_completed : styles.item_body}>{body}</p>}</div>
+      <div>{body && <p className={isCompleted ? styles.item_body_completed : styles.item_body}>{body}</p>}</div>
     </div>
   );
 }

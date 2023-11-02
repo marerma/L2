@@ -32,11 +32,21 @@
 .item_main > :first-child {
   flex: 2;
   text-align: left;
+  @media all and (max-width: 500px) {
+    flex: 1;
+  }
 }
 
 .item_main > :not(:first-child) {
   flex: 1;
   text-align: center;
+}
+
+.item_main > :last-child {
+  display: block;
+  @media all and (max-width: 500px) {
+    display: none;
+  }
 }
 
 .icon_title {

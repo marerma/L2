@@ -11,6 +11,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  @media all and (max-width: 500px) {
+    font-size: 16px;
+  }
 }
 .item_title,
 .item_title_completed,
@@ -19,8 +22,12 @@
   flex-grow: 2;
   justify-self: flex-start;
   text-overflow: ellipsis;
+  overflow: hidden;
   font-weight: 700;
   margin: 0;
+  @media all and (max-width: 500px) {
+    width: 150px;
+  }
 }
 
 .item_title_completed,
@@ -44,6 +51,7 @@ input[type='checkbox']:not(:checked) {
   background-color: #fff;
   cursor: pointer;
   border: 1px solid var(--accent);
+  flex-shrink: 0;
 }
 
 input[type='checkbox']:checked {
@@ -69,4 +77,18 @@ input[type='checkbox']:checked:after {
 .icon:hover {
   color: var(--accent);
   cursor: pointer;
+}
+
+.item_time,
+.item_time_completed,
+.item_time_hidden {
+  font-size: 14px;
+}
+
+.item_time_hidden,
+.item_time_completed_hidden {
+  display: block;
+  @media all and (max-width: 500px) {
+    display: none;
+  }
 }
